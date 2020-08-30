@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Deps: com.rpl/specter:1.0.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/rpl/specter/1.0.5/specter-1.0.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
