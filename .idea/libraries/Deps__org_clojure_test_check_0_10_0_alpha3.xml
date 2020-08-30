@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Deps: org.clojure/test.check:0.10.0-alpha3">
-    <CLASSES>
-      <root url="jar://$USER_HOME$/.m2/repository/org/clojure/test.check/0.10.0-alpha3/test.check-0.10.0-alpha3.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Deps: org.clojure/core.unify:0.5.7">
-    <CLASSES>
-      <root url="jar://$USER_HOME$/.m2/repository/org/clojure/core.unify/0.5.7/core.unify-0.5.7.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
