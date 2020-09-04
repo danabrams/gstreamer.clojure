@@ -46,7 +46,13 @@
         (is (= (el :fakesink {:named :sink :inputs [(pipe el1 el2)]})
                {:element :fakesink
                 :named :sink
-                :inputs #{:filter}}))))))
+                :inputs #{:filter}}))))
+    (testing "an event is segregated to an event field"
+      (let [el1 (el :fakesink {:named :sink :on {:error #(println %)}})]
+        (is (= el1
+               {:element :fakesink
+                :named :sink
+                :on {:error #(println %)}}))))))
 
 (defn with-inputs [el prev-el & other-inputs]
   (assoc el :inputs
