@@ -16,13 +16,16 @@
   graph)
 
 (defn delete-element! [graph el-name]
-  (let [remove-as-input (fn [old-graph elem-name]
-                          (map (fn [[_ {:keys [inputs] :as elem}]]
-                                 (assoc-in old-graph [elem :inputs]
-                                           (filter #(not= elem-name %) inputs))))
-                          (dissoc old-graph elem-name))]
+  (let [remove-as-input (fn [old-graph]
+                          (->> (dissoc old-graph el-name)
+                               (map (fn [[k elem]]
+                                      (if (seq (:inputs elem))
+                                        [k (assoc elem :inputs
+                                                       (set (remove #{el-name} (:inputs elem))))]
+                                        [k elem])))
+                               (into {})))]
 
-   (swap! graph remove-as-input el-name))
+   (swap! graph remove-as-input))
   graph)
 
 (defn connect-elements! [graph name1 name2]
