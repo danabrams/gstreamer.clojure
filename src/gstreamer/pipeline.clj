@@ -40,7 +40,7 @@
             (assoc acc (:named elem) elem))
           {} (:pipeline pipe)))
 
-(defn connect
+(defn graph
   [& pipes]
   (let [pipe-or-el-to-map
         (fn [pipe-or-el]

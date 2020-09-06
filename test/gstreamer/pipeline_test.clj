@@ -101,14 +101,14 @@
           pipe1 (pipe el1 el2)
           pipe2 (pipe el3)]
       (testing "connecting two pipes results in one large object"
-        (is (= (connect pipe1 pipe2) {(:named el1) el1
-                                      (:named el2) (with-inputs el2 el1 :othersrc)
-                                      (:named el3) el3})))
+        (is (= (graph pipe1 pipe2) {(:named el1)   el1
+                                    (:named el2) (with-inputs el2 el1 :othersrc)
+                                    (:named el3) el3})))
       (testing "connecting a pipe and an el results in one large object"
-          (is (= (connect pipe1 el3)
-                 (connect pipe1 (pipe el3)))))
+        (is (= (graph pipe1 el3)
+               (graph pipe1 (pipe el3)))))
       (testing "connecting a complex pipe works"
-        (let [final (connect (pipe el1 el4 el2) (pipe el3 el5) el6)
+        (let [final (graph (pipe el1 el4 el2) (pipe el3 el5) el6)
               test-final {(:named el1) el1
                           (:named el4) (with-inputs el4 el1)
                           (:named el2) (with-inputs el2 el4 :othersrc)
@@ -118,10 +118,10 @@
           (is (= final
                  test-final))))
       (testing "connecting the same element twice overwrites props"
-        (is (= (connect el8 el7)
+        (is (= (graph el8 el7)
                {:other {:element :othersrc :named :other :location "/alsofake"}})))
       (testing "connecting two elements with same name of different types overwrites the first"
-        (is (= (connect el1 el7)
+        (is (= (graph el1 el7)
                {:other {:element :othersrc :named :other :location "/alsofake"}}))))))
 
 
