@@ -52,16 +52,23 @@
     (.setState (:root-bin @graph) st)
     graph))
 
-(defn get-pad [pad-query el]
-  (let [pads (cond (= :src (first pad-query)) (.getSrcPads el)
-                   (= :sink (first pad-query)) (.getSinkPads el)
-                   :default (.getPads el))]
-    (first (filter #(= (name (last pad-query)) (.getName (.getParentElement (.getPeer %)))) pads))))
+(defn get-pad
+  ([el pad-query]
+   (let [pads (cond (= :src (first pad-query)) (.getSrcPads el)
+                    (= :sink (first pad-query)) (.getSinkPads el)
+                    :default (.getPads el))]
+     (first (filter #(= (name (last pad-query)) (.getName (.getParentElement (.getPeer %)))) pads))))
+  ([el-name pad-query graph]
+   (get-pad (get-in @graph [el-name :reference]) pad-query)))
 
 (defn set-prop!
-  ([graph elem-name prop-name value]
-   (let [target (get-in @graph [elem-name :reference])]
-     (when target (.set target (name prop-name) value))))
+  ([graph elem-name prop-name value-query]
+   (let [target (get-in @graph [elem-name :reference])
+         value (if (:get-pad value-query)
+                 (get-pad target (:get-pad value-query))
+                 value-query)]
+     (when target (.set target (name prop-name) value)))
+   graph)
   ([graph target-name target-query prop-name value]
    (let [pad (get-pad target-query (get-in @graph [target-name :reference]))]
      (if pad (.set pad (name prop-name) value)
